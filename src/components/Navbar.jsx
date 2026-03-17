@@ -19,7 +19,7 @@ function Navbar({ theme, onToggleTheme }) {
               <span className="top-nav__mark-block" />
               <span className="top-nav__mark-arc" />
             </span>
-            <span className="top-nav__brand-name">faltuKaam</span>
+            <span className="top-nav__brand-name">RouteLab</span>
           </a>
 
           <div className="top-nav__actions">
