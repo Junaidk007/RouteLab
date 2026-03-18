@@ -1,6 +1,14 @@
+import { useState } from "react"
+
 const methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
 
 function HttpMethodSelector() {
+
+  let [httpMethod, setHttpMethod] = useState(methods[0]);
+
+  const methodHandel = (e) => {
+    setHttpMethod(e.target.innerText)
+  }
   return (
     <section className="dash-card" aria-labelledby="http-method-label">
       <div className="dash-card__head">
@@ -11,8 +19,9 @@ function HttpMethodSelector() {
           <button
             key={method}
             type="button"
-            className={`dash-method-btn ${index === 0 ? 'is-active' : ''}`}
-            aria-pressed={index === 0}
+            className={`dash-method-btn ${method === httpMethod ? 'is-active' : ''}`}
+            // aria-pressed={index === 0}
+            onClick={methodHandel}
           >
             {method}
           </button>
