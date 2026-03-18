@@ -39,7 +39,7 @@ function HeroVisual() {
             </p>
           </div>
 
-          <div className="hero__api-footer">
+          {/* <div className="hero__api-footer">
             <div className="hero__mini-card">
               <FontAwesomeIcon icon={faCode} />
               <span>Tests passed</span>
@@ -48,7 +48,7 @@ function HeroVisual() {
               <FontAwesomeIcon icon={faBolt} />
               <span>Auto-save on</span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

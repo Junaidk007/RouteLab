@@ -9,7 +9,7 @@ function AuthPage() {
   const navigate = useNavigate();
 
   const handelAuth = () => {
-    navigate('/')
+    navigate('/dashboard')
   }
 
   return (

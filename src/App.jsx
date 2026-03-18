@@ -4,6 +4,8 @@ import Landing from './pages/Landing'
 import AuthPage from './pages/AuthPage'
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
+import Dashboard from './pages/Dashboard'
+import Dashboard1 from './pages/Dashboard1'
 
 function App() {
   const [theme, setTheme] = useState('light')
@@ -19,6 +21,8 @@ function App() {
         <Routes>
             <Route path='/auth' element={<AuthPage/>}/>
             <Route path='/' element={<Landing/>} />
+            <Route path='/dashboard' element={<Dashboard/>} />
+            <Route path='/dashboard1' element={<Dashboard1/>} />
         </Routes>
       </div>
     </>

@@ -1,6 +1,6 @@
 .app-shell {
   position: relative;
-  max-height: 100dvh;
+  min-height: 100dvh;
   overflow: hidden;
   background: var(--bg-main);
   color: var(--text-main);

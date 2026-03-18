@@ -1,6 +1,8 @@
 .hero {
-  padding: 1.2rem 0 3rem;
+  padding: 1.2rem 0 0;
   position: relative;
+  /* max-height: 100dvh;
+  overflow: hidden; */
 }
 
 .hero::before {
@@ -122,7 +124,7 @@
 }
 
 .hero__visual-wrap {
-  min-height: 390px;
+  /* min-height: 390px; */
   border-radius: 22px;
   border: 1px solid var(--border-soft);
   background: var(--dashboard-shell);
