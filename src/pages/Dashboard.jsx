@@ -2,9 +2,64 @@ import DashboardTopbar from '../components/dashboard/DashboardTopbar'
 import HttpMethodSelector from '../components/dashboard/HttpMethodSelector'
 import ApiInputSection from '../components/dashboard/ApiInputSection'
 import AppTypeSelector from '../components/dashboard/AppTypeSelector'
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { prism } from "react-syntax-highlighter/dist/esm/styles/prism";
 import './dashboard.css'
+import { useState } from 'react'
+
+function getStatusText(status) {
+  if (!status) {
+    return 'No request yet';
+  }
+
+  if (status >= 200 && status < 300) {
+    return `${status} Success`;
+  }
+
+  if (status >= 300 && status < 400) {
+    return `${status} Redirect`;
+  }
+
+  if (status >= 400 && status < 500) {
+    return `${status} Client Error`;
+  }
+
+  if (status >= 500) {
+    return `${status} Server Error`;
+  }
+
+  return `${status}`;
+}
+
+function getStatusClassName(status) {
+  if (!status) {
+    return 'dash-pill--idle';
+  }
+
+  if (status >= 200 && status < 300) {
+    return 'dash-pill--success';
+  }
+
+  if (status >= 300 && status < 400) {
+    return 'dash-pill--redirect';
+  }
+
+  if (status >= 400 && status < 500) {
+    return 'dash-pill--warning';
+  }
+
+  if (status >= 500) {
+    return 'dash-pill--error';
+  }
+
+  return 'dash-pill--idle';
+}
 
 function Dashboard() {
+  const [http, setHttp] = useState('');
+  const [response, setResponse] = useState();
+  const [status, setStatus] = useState();
+
   return (
     <main className="dashboard-page">
       <section className="dashboard-shell container">
@@ -12,8 +67,8 @@ function Dashboard() {
 
         <div className="dashboard-grid">
           <section className="dashboard-column dashboard-column--request" aria-label="Request builder">
-            <HttpMethodSelector />
-            <ApiInputSection />
+            <HttpMethodSelector updateHttp={setHttp} />
+            <ApiInputSection http={http} setResponse={setResponse} setStatus={setStatus} />
             <AppTypeSelector />
 
             <section className="dash-card" aria-labelledby="request-body-label">
@@ -32,7 +87,7 @@ function Dashboard() {
               <div className="dash-card__head">
                 <h2 id="response-label" className="dash-card__title">Response</h2>
                 <div className="dash-status-row">
-                  <span className="dash-pill dash-pill--success">200 OK</span>
+                  <span className={`dash-pill ${getStatusClassName(status)}`}>{getStatusText(status)}</span>
                   <span className="dash-pill">312 ms</span>
                 </div>
               </div>
@@ -44,12 +99,9 @@ function Dashboard() {
               </div>
 
               <pre className="dash-codebox dash-codebox--response" aria-label="Response body preview">
-{`{
-  "status": "success",
-  "data": {
-    "message": "Hello from dashboard template"
-  }
-}`}
+                <SyntaxHighlighter language="js" style={prism}  customStyle={{ background: "transparent" }}>
+                  {JSON.stringify(response, null, 2)}
+                </SyntaxHighlighter>
               </pre>
             </section>
           </section>

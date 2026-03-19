@@ -133,6 +133,12 @@
 }
 
 .dash-send-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
   min-width: 90px;
   min-height: 44px;
   border-radius: 10px;
@@ -140,12 +146,64 @@
   background: var(--text-strong);
   color: var(--button-text);
   font-weight: 700;
+  transition: transform 160ms ease, box-shadow 200ms ease, filter 200ms ease, background-color 200ms ease;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.14);
+}
+
+.dash-send-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.18);
+}
+
+.dash-send-btn:active,
+.dash-send-btn.is-sending {
+  transform: translateY(1px) scale(0.97);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.16);
+  filter: saturate(1.08);
+}
+
+.dash-send-btn:disabled {
+  cursor: wait;
+  opacity: 0.96;
+}
+
+.dash-send-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.22) 50%, transparent 80%);
+  transform: translateX(-135%);
+}
+
+.dash-send-btn.is-sending::after {
+  animation: dash-send-sheen 620ms ease;
+}
+
+.dash-send-btn__label {
+  position: relative;
+  z-index: 1;
+}
+
+.dash-send-btn__spinner {
+  position: relative;
+  z-index: 1;
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: currentColor;
+  animation: dash-send-spin 700ms linear infinite;
 }
 
 :root[data-theme='dark'] .dash-send-btn {
   background: #f8fafc;
   color: #020617;
   border-color: #f8fafc;
+}
+
+:root[data-theme='dark'] .dash-send-btn__spinner {
+  border-color: rgba(2, 6, 23, 0.18);
+  border-top-color: currentColor;
 }
 
 .dash-field-grid {
@@ -188,8 +246,80 @@
 
 .dash-codebox--response {
   min-height: 300px;
+  max-height: 474px;
   margin: 0;
   overflow: auto;
+  background:
+    linear-gradient(180deg, rgba(148, 163, 184, 0.06), transparent 26%),
+    var(--surface-glass);
+}
+
+.dash-codebox__placeholder {
+  color: var(--text-soft);
+}
+
+.dash-json-key {
+  color: #0f766e;
+}
+
+.dash-json-punctuation {
+  color: var(--text-soft);
+}
+
+.dash-json-value--string {
+  color: #c2410c;
+}
+
+.dash-json-value--number {
+  color: #1d4ed8;
+}
+
+.dash-json-value--boolean {
+  color: #7c3aed;
+}
+
+.dash-json-value--null {
+  color: #64748b;
+}
+
+:root[data-theme='dark'] .dash-json-key {
+  color: #5eead4;
+}
+
+:root[data-theme='dark'] .dash-json-value--string {
+  color: #fdba74;
+}
+
+:root[data-theme='dark'] .dash-json-value--number {
+  color: #93c5fd;
+}
+
+:root[data-theme='dark'] .dash-json-value--boolean {
+  color: #c4b5fd;
+}
+
+:root[data-theme='dark'] .dash-json-value--null {
+  color: #94a3b8;
+}
+
+@keyframes dash-send-sheen {
+  from {
+    transform: translateX(-135%);
+  }
+
+  to {
+    transform: translateX(135%);
+  }
+}
+
+@keyframes dash-send-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .dash-card--response {
@@ -245,11 +375,59 @@
   color: #16a34a;
 }
 
+.dash-pill--idle {
+  border-color: rgba(100, 116, 139, 0.28);
+  background: rgba(100, 116, 139, 0.12);
+  color: #475569;
+}
+
+.dash-pill--redirect {
+  border-color: rgba(59, 130, 246, 0.28);
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+}
+
+.dash-pill--warning {
+  border-color: rgba(245, 158, 11, 0.28);
+  background: rgba(245, 158, 11, 0.14);
+  color: #d97706;
+}
+
+.dash-pill--error {
+  border-color: rgba(239, 68, 68, 0.28);
+  background: rgba(239, 68, 68, 0.14);
+  color: #dc2626;
+}
+
 :root[data-theme='dark'] .dash-pill--online,
 :root[data-theme='dark'] .dash-pill--success {
   border-color: rgba(74, 222, 128, 0.28);
   background: rgba(74, 222, 128, 0.2);
   color: #4ade80;
+}
+
+:root[data-theme='dark'] .dash-pill--idle {
+  border-color: rgba(148, 163, 184, 0.28);
+  background: rgba(148, 163, 184, 0.16);
+  color: #cbd5e1;
+}
+
+:root[data-theme='dark'] .dash-pill--redirect {
+  border-color: rgba(96, 165, 250, 0.32);
+  background: rgba(96, 165, 250, 0.18);
+  color: #93c5fd;
+}
+
+:root[data-theme='dark'] .dash-pill--warning {
+  border-color: rgba(251, 191, 36, 0.3);
+  background: rgba(251, 191, 36, 0.18);
+  color: #fcd34d;
+}
+
+:root[data-theme='dark'] .dash-pill--error {
+  border-color: rgba(248, 113, 113, 0.3);
+  background: rgba(248, 113, 113, 0.18);
+  color: #fca5a5;
 }
 
 .sr-only {

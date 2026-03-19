@@ -2,12 +2,13 @@ import { useState } from "react"
 
 const methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
 
-function HttpMethodSelector() {
+function HttpMethodSelector({updateHttp}) {
 
   let [httpMethod, setHttpMethod] = useState(methods[0]);
 
   const methodHandel = (e) => {
     setHttpMethod(e.target.innerText)
+    updateHttp(e.target.innerText);
   }
   return (
     <section className="dash-card" aria-labelledby="http-method-label">
