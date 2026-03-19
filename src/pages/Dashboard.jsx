@@ -3,7 +3,7 @@ import HttpMethodSelector from '../components/dashboard/HttpMethodSelector'
 import ApiInputSection from '../components/dashboard/ApiInputSection'
 import AppTypeSelector from '../components/dashboard/AppTypeSelector'
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { prism } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { prism, vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import './dashboard.css'
 import { useState } from 'react'
 
@@ -55,10 +55,11 @@ function getStatusClassName(status) {
   return 'dash-pill--idle';
 }
 
-function Dashboard() {
+function Dashboard({ theme }) {
   const [http, setHttp] = useState('');
   const [response, setResponse] = useState();
   const [status, setStatus] = useState();
+  const codeTheme = theme === 'dark' ? vscDarkPlus : prism;
 
   return (
     <main className="dashboard-page">
@@ -99,7 +100,7 @@ function Dashboard() {
               </div>
 
               <pre className="dash-codebox dash-codebox--response" aria-label="Response body preview">
-                <SyntaxHighlighter language="js" style={prism}  customStyle={{ background: "transparent" }}>
+                <SyntaxHighlighter language="json" style={codeTheme} customStyle={{ background: "transparent" }}>
                   {JSON.stringify(response, null, 2)}
                 </SyntaxHighlighter>
               </pre>

@@ -19,7 +19,7 @@ function App() {
         <Routes>
             <Route path='/auth' element={<AuthPage/>}/>
             <Route path='/' element={<Landing/>} />
-            <Route path='/dashboard' element={<Dashboard/>} />
+            <Route path='/dashboard' element={<Dashboard theme={theme} />} />
         </Routes>
       </div>
     </>
